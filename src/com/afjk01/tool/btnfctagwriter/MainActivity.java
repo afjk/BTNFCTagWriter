@@ -54,7 +54,7 @@ import java.util.Set;
 import java.util.UUID;
 
 public class MainActivity extends Activity {
-    private static final String TAG = "stickynotes";
+    private static final String TAG = "btnfctagwriter";
     private boolean mWriteMode = false;
     NfcAdapter mNfcAdapter;
 //    EditText mNote;
