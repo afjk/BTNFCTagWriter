@@ -80,7 +80,15 @@ public class MainActivity extends Activity {
 //		setContentView(R.layout.activity_main);
 
 		mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
-
+        if( mNfcAdapter == null ){
+        	Toast.makeText(this, "NFCをサポートしていない端末です。", Toast.LENGTH_LONG).show();
+        	this.finish();
+        }else if( !mNfcAdapter.isEnabled() ){
+        	Toast.makeText(this, "NFC設定をONにしてアプリを立ち上げてください。", Toast.LENGTH_LONG).show();
+        	this.finish();
+        }
+		
+		
         // Handle all of our received NFC intents in this activity.
         mNfcPendingIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
@@ -95,7 +103,6 @@ public class MainActivity extends Activity {
         // Intent filters for writing to a tag
         IntentFilter tagDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
         mWriteTagFilters = new IntentFilter[] { tagDetected };
-        
         
         //-- from bluetooth chat
 
@@ -131,7 +138,7 @@ public class MainActivity extends Activity {
 
         // Bluetoothが無効な場合、有効にする。
         if( !mBtAdapter.isEnabled() ){
-        	Toast.makeText(this, "Bluetooth設定をONにしてアプリを立ち上げてください", Toast.LENGTH_SHORT).show();
+        	Toast.makeText(this, "Bluetooth設定をONにしてアプリを立ち上げてください", Toast.LENGTH_LONG).show();
         	this.finish();
         }
         
